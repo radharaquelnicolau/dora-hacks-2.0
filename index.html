@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pie - Home</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+body { background: #15100C; margin: 0; font-family: sans-serif; }
+</style>
+</head>
+<body>
+
+<div style="width:300px;height:600px;margin:40px auto;border-radius:32px;background:#241812;border:8px solid #15100C;overflow:hidden;display:flex;flex-direction:column;">
+<div style="flex:1;overflow:hidden;padding:20px 18px;box-sizing:border-box;">
+
+<div style="color:#FCEFDD;font-size:19px;font-weight:500;">Hey Rimsha</div>
+
+<div style="display:flex;justify-content:center;margin:18px 0;">
+<div style="color:#FCEFDD;font-size:20px;font-weight:500;" id="budget-left">Loading...</div>
+</div>
+
+<div id="category-list" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
+
+<div style="color:#B9A08C;font-size:10px;text-transform:uppercase;margin:16px 0 8px;">Recent</div>
+<div id="transaction-list"></div>
+
+<div style="margin-top:16px;">
+  <input id="tx-amount" type="number" placeholder="Amount" style="width:100%;padding:8px;margin-bottom:8px;border-radius:8px;border:none;box-sizing:border-box;">
+
+  <select id="tx-category" style="width:100%;padding:8px;margin-bottom:8px;border-radius:8px;box-sizing:border-box;">
+  </select>
+
+  <input id="tx-note" type="text" placeholder="Note (e.g. coffee)" style="width:100%;padding:8px;margin-bottom:8px;border-radius:8px;border:none;box-sizing:border-box;">
+
+  <div id="add-tx-btn" style="background:#F2A93B;color:#241812;font-size:12px;font-weight:500;padding:10px;border-radius:20px;text-align:center;cursor:pointer;">Add transaction</div>
+</div>
+
+</div>
+</div>
+
+<script>
+const supabaseUrl = 'https://ejblutwfvcypsultxytc.supabase.co'
+const supabaseKey = 'sb_publishable_bZD3A0QN7Nx8IFzUcvomwQ_YaX2yJGd'
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey)
+
+async function loadData() {
+  const { data: categories } = await supabaseClient.from('categories').select('*')
+  const { data: transactions } = await supabaseClient.from('transactions').select('*')
+
+  document.getElementById('budget-left').innerText = "Categories loaded: " + categories.length
+
+  const categoryList = document.getElementById('category-list')
+  categoryList.innerHTML = ''
+
+  categories.forEach(cat => {
+    const box = document.createElement('div')
+    box.style = "background:#33241B;border-radius:14px;padding:10px 12px;"
+    box.innerHTML = `
+      <div style="color:#FCEFDD;font-size:11px;font-weight:500;">${cat.name}</div>
+      <div style="color:#B9A08C;font-size:11px;">Limit: $${cat.limit_amount}</div>
+    `
+    categoryList.appendChild(box)
+  })
+
+  const categorySelect = document.getElementById('tx-category')
+  categorySelect.innerHTML = ''
+  categories.forEach(cat => {
+    const option = document.createElement('option')
+    option.value = cat.id
+    option.innerText = cat.name
+    categorySelect.appendChild(option)
+  })
+
+  const transactionList = document.getElementById('transaction-list')
+  transactionList.innerHTML = ''
+
+  if (transactions.length === 0) {
+    transactionList.innerHTML = '<div style="color:#B9A08C;font-size:12px;">No transactions yet</div>'
+  } else {
+    transactions.forEach(tx => {
+      const row = document.createElement('div')
+      row.style = "display:flex;justify-content:space-between;padding:6px 0;"
+      row.innerHTML = `
+        <span style="color:#FCEFDD;font-size:12px;">${tx.note || 'Transaction'}</span>
+        <span style="color:#FCEFDD;font-size:12px;">$${tx.amount}</span>
+      `
+      transactionList.appendChild(row)
+    })
+  }
+}
+
+document.getElementById('add-tx-btn').addEventListener('click', async () => {
+  const amount = document.getElementById('tx-amount').value
+  const categoryId = document.getElementById('tx-category').value
+  const note = document.getElementById('tx-note').value
+
+  const { error } = await supabaseClient.from('transactions').insert({
+    amount: amount,
+    category_id: categoryId,
+    note: note
+  })
+
+  if (error) {
+    alert('Error: ' + error.message)
+  } else {
+    alert('Transaction added!')
+    loadData()
+  }
+})
+
+loadData()
+</script>
+
+</body>
+</html>
