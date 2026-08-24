@@ -96,11 +96,13 @@ Done:
 - `goals/page.tsx` — Goals section (emoji + ProgressBar + amounts) + Debt section (balance + min payment progress)
 - `wrap/page.tsx` — styled wrap cards from useWrap hook with dark-text support
 
-Remaining:
-1. Wire BottomNav icons (currently text links — add lucide-react icons)
-2. Swap mock data for real API calls once backend endpoints are live (`NEXT_PUBLIC_API_URL` in `.env.local`)
-3. Persist onboarding cadence + ratios to backend via `PUT /ratios`
-4. POST confirmed scan transactions to backend
+- `components/layout/BottomNav.tsx` — icons via lucide-react (Home, ScanLine, Target, Sparkles), active tab highlighted in gold
+- `app/page.tsx` — redirects to `/onboarding` on first visit
+
+Remaining (backend integration, when backend is ready):
+1. Swap mock data for real API calls once backend endpoints are live (`NEXT_PUBLIC_API_URL` in `frontend/.env.local` — already set to `http://localhost:4000`)
+2. Persist onboarding cadence + ratios to backend via `PUT /ratios` (see `onboarding/page.tsx` handleComplete)
+3. POST confirmed scan transactions to backend (see `scan/page.tsx` handleConfirm)
 
 ## Commands
 

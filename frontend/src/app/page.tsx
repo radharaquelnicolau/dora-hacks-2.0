@@ -1,8 +1,5 @@
-export default function Home() {
-  return (
-    <main>
-      <h1>Pie</h1>
-      <p>Slice your paycheck. Own your money.</p>
-    </main>
-  );
+import { redirect } from "next/navigation";
+
+export default function RootPage() {
+  redirect("/onboarding");
 }
