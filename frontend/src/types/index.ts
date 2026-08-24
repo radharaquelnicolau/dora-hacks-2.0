@@ -1,3 +1,11 @@
+export type AuthMethod = "email" | "google";
+
+export interface AuthSession {
+  email: string;
+  method: AuthMethod;
+  signedUpAt: string;
+}
+
 export type CategoryKey = "needs" | "wants" | "savings" | "debt";
 export type PayCadence = "weekly" | "biweekly" | "monthly" | "irregular";
 
