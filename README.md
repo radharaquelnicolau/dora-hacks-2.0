@@ -18,16 +18,7 @@ Pie is a mobile-first budgeting app built for students with irregular income. It
 
 ## Project structure
 
-```
-dora-hacks-2.0/
-├── app.js              # Backend entry point (Node.js + Supabase)
-├── package.json        # Backend dependencies
-├── .env.local          # Backend environment variables (not committed)
-├── API_CONTRACT.md     # Endpoint shapes agreed between frontend and backend
-└── frontend/           # Next.js frontend app (see frontend/README.md)
-```
 
-This is a **two-service** project. The backend and frontend run as separate processes and communicate over HTTP.
 
 ---
 
@@ -35,7 +26,7 @@ This is a **two-service** project. The backend and frontend run as separate proc
 
 | Service | Tech | Port | How to run |
 |---|---|---|---|
-| Backend | Node.js + Supabase | — | `node app.js` from repo root |
+| Backend | 
 | Frontend | Next.js 16 (App Router) | 3000 | `npm run dev` from `frontend/` |
 
 ---
@@ -50,10 +41,7 @@ git checkout frontend
 ```
 
 **2. Start the backend**
-```bash
-npm install
-node app.js
-```
+
 
 **3. Start the frontend** (separate terminal)
 ```bash
@@ -66,17 +54,7 @@ Open [http://localhost:3000](http://localhost:3000) — the app will use mock da
 
 ---
 
-## Environment variables
 
-The frontend reads `frontend/.env.local`:
-
-```
-NEXT_PUBLIC_API_URL=http://localhost:4000
-```
-
-Leave this unset or point it to a non-running server to use the built-in mock data for demos.
-
----
 
 ## API contract
 
@@ -89,8 +67,8 @@ All endpoint shapes are documented in [`API_CONTRACT.md`](./API_CONTRACT.md). Th
 | Layer | Stack |
 |---|---|
 | Frontend | Next.js 16 (App Router), TypeScript, Tailwind v4, recharts, lucide-react |
-| Backend | Node.js, Supabase |
-| Database | Supabase (PostgreSQL) |
+| Backend | 
+| Database | 
 
 ---
 
