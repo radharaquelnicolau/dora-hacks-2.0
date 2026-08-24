@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Manrope:wght@400;600;700;800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-crust: #241812;
+  --color-crust-dark: #15100c;
+  --color-card: #33241b;
+  --color-card-alt: #3d2b20;
+  --color-cream: #fcefdd;
+  --color-muted: #b9a08c;
+  --color-gold: #f2a93b;
+  --color-page: #ede6dc;
+
+  --color-needs: #e8483c;
+  --color-wants: #ffd84d;
+  --color-savings: #6c63ff;
+  --color-debt: #c23b6b;
+
+  --font-display: "Baloo 2", sans-serif;
+  --font-body: "Manrope", sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-crust);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+}
+
+.bar-track {
+  background: #4a362a;
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
