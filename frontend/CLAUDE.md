@@ -86,16 +86,21 @@ Radius: `rounded-2xl` on cards, `rounded-full` on buttons/pills/chips. Never sha
 Done:
 - `components/ui/`: Donut, ProgressBar, Card, Pill, Button
 - `components/layout/BottomNav.tsx` + `app/(tabs)/layout.tsx`
-- Placeholder pages for home/scan/goals/wrap (routing confirmed working)
 - `types/index.ts`, `styles/tokens.ts`, `globals.css`
+- `lib/mockData.ts` — filled with realistic transactions, ratios, goals, debts, wrap cards
+- `lib/ratios.ts` — normalizeRatios() implemented
+- `hooks/useTransactions`, `useRatios`, `useWrap` — all fall back to mockData on API failure
+- `home/page.tsx` — income header, Donut chart, per-category budget cards with ProgressBar, recent transactions list
+- `onboarding/` — full 3-step flow: WelcomeStep (branding), CadenceStep (option selector), RatioStep (live sliders + Donut preview); redirects to /home on complete
+- `scan/page.tsx` — idle (file upload + demo shortcut) → processing (spinner) → confirm (editable category pills per item) states
+- `goals/page.tsx` — Goals section (emoji + ProgressBar + amounts) + Debt section (balance + min payment progress)
+- `wrap/page.tsx` — styled wrap cards from useWrap hook with dark-text support
 
-Not started yet (in priority order):
-1. `lib/mockData.ts` — needs real fake data matching `types/index.ts`
-2. `home/page.tsx` — real content using Donut + category cards + mock data
-3. `onboarding/` — 3-step flow (welcome, cadence, ratio builder)
-4. `scan/page.tsx` — idle/processing/confirm states, file input for receipt upload
-5. `goals/page.tsx` and `wrap/page.tsx`
-6. Swap mock data for real API calls once backend endpoints exist
+Remaining:
+1. Wire BottomNav icons (currently text links — add lucide-react icons)
+2. Swap mock data for real API calls once backend endpoints are live (`NEXT_PUBLIC_API_URL` in `.env.local`)
+3. Persist onboarding cadence + ratios to backend via `PUT /ratios`
+4. POST confirmed scan transactions to backend
 
 ## Commands
 
