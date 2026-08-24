@@ -38,7 +38,14 @@ export default function OnboardingPage() {
     router.push("/home");
   }
 
-  if (step === 0) return <WelcomeStep onNext={() => setStep(1)} />;
+  if (step === 0) {
+    return (
+      <WelcomeStep
+        onNext={() => setStep(1)}
+        onLogin={() => router.push("/login")}
+      />
+    );
+  }
   if (step === 1) return <CadenceStep onNext={handleCadence} />;
   if (step === 2) return <RatioStep onComplete={handleRatiosComplete} />;
   return <SignUpStep onComplete={handleSignUpComplete} />;

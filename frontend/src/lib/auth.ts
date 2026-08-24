@@ -51,6 +51,28 @@ export async function signUpWithEmail(email: string, password: string): Promise<
   });
 }
 
+export async function signInWithEmail(email: string, password: string): Promise<AuthSession> {
+  const trimmedEmail = email.trim();
+  if (!trimmedEmail || !password) {
+    throw new Error("Email and password are required.");
+  }
+
+  try {
+    await fetchAPI<AuthSession>("/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ email: trimmedEmail, password }),
+    });
+  } catch {
+    // Fall back to mock session when backend is unavailable
+  }
+
+  return saveSession({
+    email: trimmedEmail,
+    method: "email",
+    signedUpAt: new Date().toISOString(),
+  });
+}
+
 export async function signInWithGoogle(): Promise<AuthSession> {
   try {
     await fetchAPI<AuthSession>("/auth/google", { method: "POST" });

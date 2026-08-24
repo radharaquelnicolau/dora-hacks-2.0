@@ -6,12 +6,14 @@ interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "cl
   label: string;
   error?: string;
   endAdornment?: ReactNode;
+  labelExtra?: ReactNode;
 }
 
 export default function TextInput({
   label,
   error,
   endAdornment,
+  labelExtra,
   id,
   ...props
 }: TextInputProps) {
@@ -19,9 +21,12 @@ export default function TextInput({
 
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={inputId} className="text-sm font-semibold text-cream">
-        {label}
-      </label>
+      <div className="flex items-center justify-between">
+        <label htmlFor={inputId} className="text-sm font-semibold text-cream">
+          {label}
+        </label>
+        {labelExtra}
+      </div>
       <div className="relative">
         <input
           id={inputId}
