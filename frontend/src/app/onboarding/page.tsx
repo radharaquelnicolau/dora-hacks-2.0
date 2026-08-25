@@ -9,6 +9,7 @@ import { RatioStep } from "./components/RatioStep";
 import { SignUpStep } from "./components/SignUpStep";
 import { fetchAPI } from "@/lib/api";
 import { mockRatios } from "@/lib/mockData";
+import { saveUserPrefs } from "@/lib/userPrefs";
 import type { PayCadence, RatioCategory, IncomeDates } from "@/types";
 
 export default function OnboardingPage() {
@@ -34,6 +35,7 @@ export default function OnboardingPage() {
   }
 
   async function handleSignUpComplete() {
+    saveUserPrefs({ cadence, incomeDates, ratios });
     try {
       await fetchAPI<RatioCategory[]>("/ratios", {
         method: "PUT",
