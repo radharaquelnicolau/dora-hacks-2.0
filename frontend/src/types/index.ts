@@ -1,5 +1,21 @@
+export type AuthMethod = "email" | "google";
+
+export interface AuthSession {
+  email: string;
+  method: AuthMethod;
+  signedUpAt: string;
+}
+
 export type CategoryKey = "needs" | "wants" | "savings" | "debt";
 export type PayCadence = "weekly" | "biweekly" | "monthly" | "irregular";
+
+export type DayOfWeek = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
+
+export interface IncomeDates {
+  monthly?: number; // 1-31
+  biweekly?: number[]; // [day1, day2]
+  weekly?: DayOfWeek;
+}
 
 export interface RatioCategory {
   needs: number;

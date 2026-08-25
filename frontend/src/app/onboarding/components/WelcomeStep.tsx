@@ -1,6 +1,12 @@
 import Button from "@/components/ui/Button";
 
-export function WelcomeStep({ onNext }: { onNext: () => void }) {
+export function WelcomeStep({
+  onNext,
+  onLogin,
+}: {
+  onNext: () => void;
+  onLogin: () => void;
+}) {
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-6 gap-8 text-center">
       <div className="flex flex-col gap-3">
@@ -10,7 +16,10 @@ export function WelcomeStep({ onNext }: { onNext: () => void }) {
           Pie helps students with irregular income budget smarter — split every dollar into needs, wants, savings, and debt.
         </p>
       </div>
-      <Button onClick={onNext} className="w-full max-w-xs">Get started</Button>
+      <div className="flex flex-col gap-3 w-full max-w-xs">
+        <Button onClick={onNext} className="w-full">Get started</Button>
+        <Button onClick={onLogin} className="w-full">Log In</Button>
+      </div>
     </main>
   );
 }
